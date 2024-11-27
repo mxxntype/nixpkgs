@@ -93,7 +93,13 @@ mapAliases {
   adoptopenjdk-openj9-bin-8 = throw "adoptopenjdk has been removed as the upstream project is deprecated. Consider using `semeru-bin-8`."; # Added 2024-05-09
   # Post 24.11 branch-off, this should throw an error
   addOpenGLRunpath = addDriverRunpath; # Added 2024-05-25
-  aeon = throw "aeon has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2024-07-15
+
+  # WARN: My flake uses `aeon` as its `snowfall` namespace,
+  # but this line right here breaks evaluation. Couldn't
+  # figure out a more "solid" way to disable this alias, so
+  # here we have a yet another fork.
+  # aeon = throw "aeon has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2024-07-15
+
   afl = throw "afl has been removed as the upstream project was archived. Consider using 'aflplusplus'"; # Added 2024-04-21
   agda-pkg = throw "agda-pkg has been removed due to being unmaintained"; # Added 2024-09-10"
   alsaLib = throw "'alsaLib' has been renamed to/replaced by 'alsa-lib'"; # Converted to throw 2024-10-17
