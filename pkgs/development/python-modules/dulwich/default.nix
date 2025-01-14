@@ -4,7 +4,6 @@
   buildPythonPackage,
   fastimport,
   fetchFromGitHub,
-  fetchpatch2,
   gevent,
   geventhttpclient,
   git,
@@ -12,7 +11,7 @@
   gnupg,
   gpgme,
   paramiko,
-  unittestCheckHook,
+  pytestCheckHook,
   pythonOlder,
   setuptools,
   setuptools-rust,
@@ -52,23 +51,25 @@ buildPythonPackage rec {
     paramiko = [ paramiko ];
   };
 
-  nativeCheckInputs =
-    [
-      gevent
-      geventhttpclient
-      git
-      glibcLocales
-      unittestCheckHook
-    ]
-    ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [
+    gevent
+    geventhttpclient
+    git
+    glibcLocales
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  preCheck = ''
+  pytestFlagsArray = [ "tests" ];
+
+  disabledTests = [
+    # AssertionError: 'C:\\\\foo.bar\\\\baz' != 'C:\\foo.bar\\baz'
+    "test_file_win"
+  ];
+
+  disabledTestPaths = [
     # requires swift config file
-    rm tests/contrib/test_swift_smoke.py
-
-    # ImportError: attempted relative import beyond top-level package
-    rm tests/test_greenthreads.py
-  '';
+    "tests/contrib/test_swift_smoke.py"
+  ];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 

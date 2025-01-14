@@ -71,7 +71,7 @@ let
     # these are the only ones that are currently not
     inherit (builtins) addErrorContext isPath trace typeOf unsafeGetAttrPos;
     inherit (self.trivial) id const pipe concat or and xor bitAnd bitOr bitXor
-      bitNot boolToString mergeAttrs flip mapNullable inNixShell isFloat min max
+      bitNot boolToString mergeAttrs flip defaultTo mapNullable inNixShell isFloat min max
       importJSON importTOML warn warnIf warnIfNot throwIf throwIfNot checkListOfEnum
       info showWarnings nixpkgsVersion version isInOldestRelease oldestSupportedReleaseIsAtLeast
       mod compare splitByAndCompare seq deepSeq lessThan add sub
@@ -152,7 +152,7 @@ let
       scrubOptionValue literalExpression literalExample
       showOption showOptionWithDefLocs showFiles
       unknownModule mkOption mkPackageOption mkPackageOptionMD
-      mdDoc literalMD;
+      literalMD;
     inherit (self.types) isType setType defaultTypeMerge defaultFunctor
       isOptionType mkOptionType;
     inherit (self.asserts)

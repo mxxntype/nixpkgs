@@ -1,12 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, stdenv
-, libiconv
-, darwin
-, nix-update-script
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,12 +21,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-OjA0OKotAdRLGRkl8n3Gn2+Z8JVcGjQYHtOszWnnFdM=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      libiconv
-      darwin.apple_sdk.frameworks.Security
-      darwin.apple_sdk.frameworks.CoreServices
-    ];
+
+  buildInputs = [ openssl ];
 
   passthru.updateScript = nix-update-script { };
 
@@ -40,4 +34,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ nickgerace ];
   };
 }
-

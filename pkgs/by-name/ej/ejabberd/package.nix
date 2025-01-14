@@ -139,9 +139,9 @@ let
   ];
 
 in
-stdenv.mkDerivation (finalAttrs:{
+stdenv.mkDerivation (finalAttrs: {
   pname = "ejabberd";
-  version = "24.10";
+  version = "24.12";
 
   nativeBuildInputs = [
     makeWrapper
@@ -170,7 +170,7 @@ stdenv.mkDerivation (finalAttrs:{
     owner = "processone";
     repo = "ejabberd";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-WQCFwhyaTVAX1bQURJkiCupgr3zc5yKrhQBiGyYsWZk=";
+    hash = "sha256-9TyIgsinUpUbirwqg61EYnPB/OyE5vhl3MBMRihqAtE=";
   };
 
   passthru.tests = {

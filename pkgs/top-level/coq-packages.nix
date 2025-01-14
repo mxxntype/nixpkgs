@@ -131,6 +131,7 @@ let
       mtac2 = callPackage ../development/coq-modules/mtac2 {};
       multinomials = callPackage ../development/coq-modules/multinomials {};
       odd-order = callPackage ../development/coq-modules/odd-order { };
+      Ordinal = callPackage ../development/coq-modules/Ordinal {};
       paco = callPackage ../development/coq-modules/paco {};
       paramcoq = callPackage ../development/coq-modules/paramcoq {};
       parsec = callPackage ../development/coq-modules/parsec {};
@@ -148,6 +149,7 @@ let
       ssprove = callPackage ../development/coq-modules/ssprove {};
       stalmarck-tactic = callPackage ../development/coq-modules/stalmarck {};
       stalmarck = self.stalmarck-tactic.stalmarck;
+      stdlib = callPackage ../development/coq-modules/stdlib {};
       stdpp = callPackage ../development/coq-modules/stdpp { };
       StructTact = callPackage ../development/coq-modules/StructTact {};
       tlc = callPackage ../development/coq-modules/tlc {};

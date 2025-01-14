@@ -1,6 +1,7 @@
-{ stdenv
-, lib
-, fetchurl
+{
+  stdenv,
+  lib,
+  fetchurl,
 }:
 let
   inherit (stdenv.hostPlatform) system;
@@ -45,6 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = ./update.sh;
 
   meta = {
     changelog = "https://github.com/github/gh-copilot/releases/tag/v${finalAttrs.version}";
