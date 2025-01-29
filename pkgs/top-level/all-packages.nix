@@ -4966,7 +4966,7 @@ with pkgs;
   };
 
   inherit (callPackage ../development/tools/pnpm { })
-    pnpm_8 pnpm_9;
+    pnpm_8 pnpm_9 pnpm_10;
   pnpm = pnpm_9;
 
   po4a = perlPackages.Po4a;
@@ -6888,6 +6888,10 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
     llvm_18 = llvmPackages_18.libllvm;
   };
+  rust_1_83 = callPackage ../development/compilers/rust/1_83.nix {
+    inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
+    llvm_19 = llvmPackages_19.libllvm;
+  };
   rust = rust_1_82;
 
   mrustc = callPackage ../development/compilers/mrustc { };
@@ -6897,6 +6901,7 @@ with pkgs;
   };
 
   rustPackages_1_82 = rust_1_82.packages.stable;
+  rustPackages_1_83 = rust_1_83.packages.stable;
   rustPackages = rustPackages_1_82;
 
   inherit (rustPackages) cargo cargo-auditable cargo-auditable-cargo-wrapper clippy rustc rustPlatform;
@@ -7877,7 +7882,7 @@ with pkgs;
   electron_28 = electron_28-bin;
   electron_29 = electron_29-bin;
   electron_30 = electron_30-bin;
-  electron_31 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_31 then electron-source.electron_31 else electron_31-bin;
+  electron_31 = electron_31-bin;
   electron_32 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_32 then electron-source.electron_32 else electron_32-bin;
   electron_33 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_33 then electron-source.electron_33 else electron_33-bin;
   electron = electron_33;
@@ -11107,6 +11112,7 @@ with pkgs;
 
   vigra = callPackage ../development/libraries/vigra {
     hdf5 = hdf5.override { usev110Api = true; };
+    openexr = openexr_3;
   };
 
   vte-gtk4 = vte.override {
@@ -12937,12 +12943,16 @@ with pkgs;
       zfs_2_2 = callPackage ../os-specific/linux/zfs/2_2.nix {
         configFile = "user";
       };
+      zfs_2_3 = callPackage ../os-specific/linux/zfs/2_3.nix {
+        configFile = "user";
+      };
       zfs_unstable = callPackage ../os-specific/linux/zfs/unstable.nix {
         configFile = "user";
       };
     })
     zfs_2_1
     zfs_2_2
+    zfs_2_3
     zfs_unstable;
   zfs = zfs_2_2;
 
@@ -16282,9 +16292,9 @@ with pkgs;
 
   webcamoid = libsForQt5.callPackage ../applications/video/webcamoid { };
 
-  webcord = callPackage ../by-name/we/webcord/package.nix { electron = electron_32; };
+  webcord = callPackage ../by-name/we/webcord/package.nix { electron = electron_33; };
 
-  webcord-vencord = callPackage ../by-name/we/webcord-vencord/package.nix { electron = electron_31; };
+  webcord-vencord = callPackage ../by-name/we/webcord-vencord/package.nix { electron = electron_33; };
 
   webmacs = libsForQt5.callPackage ../applications/networking/browsers/webmacs {
     stdenv = if stdenv.cc.isClang then gccStdenv else stdenv;
@@ -19033,7 +19043,9 @@ with pkgs;
 
   sieveshell = with python3.pkgs; toPythonApplication managesieve;
 
-  sunshine = callPackage ../servers/sunshine { };
+  sunshine = callPackage ../by-name/su/sunshine/package.nix {
+    boost = boost186;
+  };
 
   jami = qt6Packages.callPackage ../applications/networking/instant-messengers/jami {
     # TODO: remove once `udev` is `systemdMinimal` everywhere.
